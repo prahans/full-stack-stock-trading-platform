@@ -1,3 +1,8 @@
 .nav-link {
   margin-left: 50px;
 }
+.footerLinks {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
