@@ -7,6 +7,103 @@ function Footer() {
             <img src="media\images\logo.svg" style={{ width: "50%" }} />
             <p className="text-muted" style={{ fontSize: "14px" }}>
               &copy; 2010 - 2026, Zerodha Broking Ltd. All rights reserved.
+              <div className="mt-3 border-bottom">
+                <a
+                  href=""
+                  style={{
+                    display: "inline-block",
+                    fontSize: "20px",
+                    marginRight: "15px",
+                  }}
+                  className="text-muted"
+                >
+                  <i className="fa-brands fa-x-twitter"></i>
+                </a>
+                <a
+                  href=""
+                  style={{
+                    display: "inline-block",
+                    fontSize: "20px",
+                    marginRight: "15px",
+                  }}
+                  className="text-muted"
+                >
+                  <i className="fa-brands fa-square-facebook"></i>
+                </a>
+                <a
+                  href=""
+                  style={{
+                    display: "inline-block",
+                    fontSize: "20px",
+                    marginRight: "15px",
+                  }}
+                  className="text-muted"
+                >
+                  <i className="fa-brands fa-instagram"></i>
+                </a>
+                <a
+                  href=""
+                  style={{
+                    display: "inline-block",
+                    fontSize: "20px",
+                    marginRight: "15px",
+                  }}
+                  className="text-muted mb-4"
+                >
+                  <i className="fa-brands fa-linkedin-in"></i>
+                </a>
+              </div>
+              <div className="mt-3">
+                <a
+                  href=""
+                  style={{
+                    display: "inline-block",
+                    fontSize: "20px",
+                    marginRight: "15px",
+                  }}
+                  className="text-muted"
+                >
+                  <i className="fa-brands fa-youtube"></i>
+                </a>
+                <a
+                  href=""
+                  style={{
+                    display: "inline-block",
+                    fontSize: "20px",
+                    marginRight: "15px",
+                  }}
+                  className="text-muted"
+                >
+                  <i className="fa-brands fa-whatsapp"></i>
+                </a>
+                <a
+                  href=""
+                  style={{
+                    display: "inline-block",
+                    fontSize: "20px",
+                    marginRight: "15px",
+                  }}
+                  className="text-muted"
+                >
+                  <i className="fa-brands fa-telegram"></i>
+                </a>
+              </div>
+              <div className="row mt-4">
+                <div className="col">
+                  <img
+                    src="media\images\google-play-badge-light.svg"
+                    alt="googlePlay"
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="col">
+                  <img
+                    src="media\images\appstore-badge-light.svg"
+                    alt="appleStore"
+                    style={{ width: "100%" }}
+                  />
+                </div>
+              </div>
             </p>
           </div>
           <div className="col">
