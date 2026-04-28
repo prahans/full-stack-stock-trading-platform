@@ -1,7 +1,13 @@
+import Hero from "./Hero";
+import Team from "./Team";
+
 function AboutPage() {
-    return ( 
-        <h1>About page</h1>
-     );
+  return (
+    <>
+      <Hero />
+      <Team />
+    </>
+  );
 }
 
 export default AboutPage;
