@@ -1,5 +1,3 @@
-import Footer from "../Footer";
-import Navbar from "../Navbar";
 import OpenAccout from "../OpenAccount";
 import Award from "./Award";
 import Education from "./Education";
@@ -8,18 +6,16 @@ import Pricing from "./Pricing";
 import Stats from "./Stats";
 
 function HomePage() {
-    return (
-        <> 
-        <Navbar />
-        <Hero />
-        <Award />
-        <Stats />
-        <Pricing />
-        <Education />
-        <OpenAccout />
-        <Footer />
-        </>
-     );
+  return (
+    <>
+      <Hero />
+      <Award />
+      <Stats />
+      <Pricing />
+      <Education />
+      <OpenAccout />
+    </>
+  );
 }
 
 export default HomePage;

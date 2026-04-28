@@ -2,7 +2,7 @@ function OpenAccout() {
   return (
     <div className="container p-5 mb-5">
       <div className="row text-center">
-        <h1 className="mt-5 fs-2" style={{ opacity: 0.8 }}>
+        <h1 className="mt-5 fs-2" style={{ opacity: 0.9 }}>
           Open a Zerodha account
         </h1>
         <p className="text-muted">
