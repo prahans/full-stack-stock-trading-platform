@@ -19,6 +19,7 @@ function ProductPage() {
         productName="Console"
         productDescription="The central dashboard for your Zerodha account. Gain insights into your trades and investments with in-depth reports and visualisations."
         link="Learn more"
+        marginTop={15}
       />
       <LeftSection
         imageURL="media\images\coin.png"
@@ -38,7 +39,16 @@ function ProductPage() {
         productName="Varsity mobile"
         productDescription="An easy to grasp, collection of stock market lessons with in-depth coverage and illustrations. Content is broken down into bite-size cards to help you learn on the go."
       />
-
+      <p
+        className="text-center mb-5  fs-5 text-muted"
+        style={{ marginTop: "8rem" }}
+      >
+        Want to know more about our technology stack? Check out the{" "}
+        <a href="" style={{ textDecoration: "none" }}>
+          Zerodha.tech
+        </a>{" "}
+        blog.
+      </p>
       <Universe />
     </>
   );

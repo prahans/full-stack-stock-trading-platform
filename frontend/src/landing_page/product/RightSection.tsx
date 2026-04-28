@@ -3,16 +3,21 @@ function RightSection({
   productName,
   productDescription,
   link,
+  marginTop,
 }: {
   imageURL: string;
   productName: string;
   productDescription: string;
   link?: string;
+  marginTop?: number;
 }) {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-6" style={{ marginTop: "12rem" }}>
+        <div
+          className="col-6"
+          style={{ marginTop: `${marginTop ? marginTop : 8}rem` }}
+        >
           <h2 style={{ opacity: ".9" }} className="fs-3">
             {productName}
           </h2>
