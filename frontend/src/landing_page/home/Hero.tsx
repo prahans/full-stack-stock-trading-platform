@@ -5,7 +5,7 @@ function Hero() {
         <img
           src="media/images/homeHero.png"
           alt="Hero image"
-          className="mb-5"
+          className="mb-5 p-5"
         />
         <h1 className="mt-5" style={{ opacity: ".9" }}>
           Invest in everything

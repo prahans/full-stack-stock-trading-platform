@@ -112,64 +112,96 @@ function Footer() {
             </h5>
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Open demat account
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Minor demat account
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               NRI demat account
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               HUF demat account
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Commodity
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Dematerialisation
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Fund transfer
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               MTF
             </a>
@@ -181,64 +213,96 @@ function Footer() {
             </h5>
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Contact us
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Support portal
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               How to file a complaint?
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Status of your complaints
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Bulletin
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Circular
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Z-Connect blog
             </a>
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Downloads
             </a>
@@ -250,64 +314,96 @@ function Footer() {
             </h5>
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               About
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Philosophy
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Press & media
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Careers
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Zerodha Cares (CSR)
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Zerodha.tech
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Open source
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Referral program
             </a>{" "}
@@ -319,48 +415,72 @@ function Footer() {
             </h5>
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Upcoming IPOs
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Brokerage charges
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Market holidays
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Economic calendar
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Calculators
             </a>{" "}
             <br />
             <a
               href=""
-              style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                fontSize: "15px",
+              }}
+              className="text-muted mb-3"
             >
               Markets
             </a>{" "}
@@ -368,7 +488,7 @@ function Footer() {
             <a
               href=""
               style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              className="text-muted mb-3"
             >
               Sectors
             </a>{" "}
@@ -376,7 +496,7 @@ function Footer() {
             <a
               href=""
               style={{ textDecoration: "none", display: "inline-block" }}
-              className="text-muted mb-2"
+              className="text-muted mb-3"
             >
               Gift Nifty
             </a>{" "}
