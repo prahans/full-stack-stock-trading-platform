@@ -1,7 +1,7 @@
 function Education() {
   return (
-    <div className="container p-3">
-      <div className="row p-5">
+    <div className="container ">
+      <div className="row">
         <div className="col-6 p-5">
           <img
             src="media\images\education.svg"
@@ -10,7 +10,7 @@ function Education() {
           />
         </div>
         <div className="col-6 p-5">
-          <h1 className="fs-2 mb-5" style={{ opacity: ".9" }}>
+          <h1 className="fs-2 mb-5 mt-5" style={{ opacity: ".9" }}>
             Free and open market education
           </h1>
           <div className="mb-5">
