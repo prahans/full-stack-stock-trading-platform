@@ -5,8 +5,12 @@ const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const PORT = process.env.PORT || 3002;
 const url = process.env.MONGO_URL;
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
 // app.get("/addHoldings", async (req, res) => {
 //     try {
@@ -185,6 +189,16 @@ const app = express();
 //     res.status(500).send("error");
 //   }
 // });
+
+app.get("/allholdings", async (req, res) => {
+  let allHoldings = await HoldingsModel.find({});
+  res.json(allHoldings);
+});
+
+app.get("/allpositions", async (req, res) => {
+  let allPositions = await PositionsModel.find({});
+  res.json(allPositions);
+});
 
 mongoose
   .connect(url)
