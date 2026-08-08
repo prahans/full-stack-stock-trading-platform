@@ -5,7 +5,7 @@ function Footer() {
         <div className="row mt-5">
           <div className="col">
             <img src="media\images\logo.svg" style={{ width: "50%" }} />
-            <p className="text-muted" style={{ fontSize: "14px" }}>
+            <div className="text-muted" style={{ fontSize: "14px" }}>
               &copy; 2010 - 2026, Zerodha Broking Ltd. All rights reserved.
               <div className="mt-3 border-bottom">
                 <a
@@ -104,7 +104,7 @@ function Footer() {
                   />
                 </div>
               </div>
-            </p>
+            </div>
           </div>
           <div className="col">
             <h5 className="mb-4" style={{ opacity: ".9" }}>
