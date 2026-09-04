@@ -15,7 +15,7 @@ type holdings = {
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState<holdings[]>([]);
   useEffect(() => {
-    axios.get("http://localhost:3002/allHoldings").then((res) => {
+    axios.get("http://localhost:3000/api/dashboard/allHoldings").then((res) => {
       setAllHoldings(res.data);
     });
   }, []);

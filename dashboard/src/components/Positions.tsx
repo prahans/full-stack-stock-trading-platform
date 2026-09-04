@@ -16,9 +16,11 @@ type positions = {
 const Positions = () => {
   const [allPositions, setAllPositions] = useState<positions[]>([]);
   useEffect(() => {
-    axios.get("http://localhost:3002/allpositions").then((res) => {
-      setAllPositions(res.data);
-    });
+    axios
+      .get("http://localhost:3000/api/dashboard/allpositions")
+      .then((res) => {
+        setAllPositions(res.data);
+      });
   }, []);
 
   return (

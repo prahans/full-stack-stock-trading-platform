@@ -12,7 +12,7 @@ type orders = {
 const Orders = () => {
   const [allOrders, setAllOrders] = useState<orders[]>([]);
   useEffect(() => {
-    axios.get("http://localhost:3002/allOrders").then((res) => {
+    axios.get("http://localhost:3000/api/dashboard/allOrders").then((res) => {
       setAllOrders(res.data);
     });
   }, []);
