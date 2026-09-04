@@ -113,6 +113,8 @@ PORT=3002
 MONGO_URL=your_mongodb_connection_string
 
 TOKEN_KEY=your_secret_key
+
+FRONTEND_URL=http://localhost:5173,http://localhost:5174
 ```
 
 ---

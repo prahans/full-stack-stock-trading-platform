@@ -1,7 +1,8 @@
 import { positions } from "../data/data";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { api } from "./api";
+import { goToLogin } from "./appUrls";
 
 type positions = {
   product: string;
@@ -16,7 +17,6 @@ type positions = {
 
 const Positions = () => {
   const [allPositions, setAllPositions] = useState<positions[]>([]);
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -26,9 +26,7 @@ const Positions = () => {
         setIsLoading(true);
         setError("");
 
-        const response = await axios.get(
-          "http://localhost:3000/api/dashboard/allPositions",
-        );
+        const response = await api.get("/api/dashboard/allPositions");
 
         setAllPositions(response.data);
       } catch (error) {
@@ -55,7 +53,9 @@ const Positions = () => {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => navigate("/login")}>Go to Login</button>
+        <button onClick={() => goToLogin()}>
+          Go to Login
+        </button>
       </>
     );
   }

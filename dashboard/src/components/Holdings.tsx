@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { api } from "./api";
+import { goToLogin } from "./appUrls";
 
 type holdings = {
   name: string;
@@ -13,7 +14,6 @@ type holdings = {
 };
 
 const Holdings = () => {
-  const navigate = useNavigate();
   const [allHoldings, setAllHoldings] = useState<holdings[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -24,9 +24,7 @@ const Holdings = () => {
         setIsLoading(true);
         setError("");
 
-        const response = await axios.get(
-          "http://localhost:3000/api/dashboard/allHoldings",
-        );
+        const response = await api.get("/api/dashboard/allHoldings");
 
         setAllHoldings(response.data);
       } catch (error) {
@@ -51,7 +49,9 @@ const Holdings = () => {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => navigate("/login")}>Go to Login</button>
+        <button onClick={() => goToLogin()}>
+          Go to Login
+        </button>
       </>
     );
   }

@@ -1,11 +1,35 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { api, dashboardUrl } from "../../api";
+
+type LoginForm = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const [serverError, setServerError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginForm>();
 
-  function onSubmit(data: { email: string; password: string }) {
-    console.log(data);
+  async function onSubmit(data: LoginForm) {
+    setServerError("");
+
+    try {
+      await api.post("/api/auth/login", data);
+      window.location.assign(dashboardUrl);
+    } catch (error) {
+      setServerError(
+        axios.isAxiosError(error)
+          ? error.response?.data?.message || "Unable to log in. Please try again."
+          : "Unable to log in. Please try again.",
+      );
+    }
   }
 
   return (
@@ -26,6 +50,7 @@ const Login = () => {
                 placeholder="Enter your email"
                 {...register("email", { required: "Email is required" })}
               />
+              {errors.email && <div className="text-danger">{errors.email.message}</div>}
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="form-label">
@@ -38,16 +63,21 @@ const Login = () => {
                 placeholder="Enter your password"
                 {...register("password", { required: "Password is required" })}
               />
+              {errors.password && (
+                <div className="text-danger">{errors.password.message}</div>
+              )}
             </div>
+            {serverError && <div className="alert alert-danger">{serverError}</div>}
             <button
               type="submit"
               className="btn btn-primary"
+              disabled={isSubmitting}
               style={{ marginRight: "1rem" }}
             >
-              Submit
+              {isSubmitting ? "Logging in..." : "Login"}
             </button>
             <span>
-              Already have an account? <Link to={"/signup"}>Signup</Link>
+              Don't have an account? <Link to={"/signup"}>Signup</Link>
             </span>
           </form>
         </div>

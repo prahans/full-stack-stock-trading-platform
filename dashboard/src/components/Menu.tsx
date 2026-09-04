@@ -3,13 +3,8 @@ import { Link } from "react-router-dom";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const handleMenuClick = (index: number) => {
     setSelectedMenu(index);
-  };
-
-  const handleProfileClick = (index: number) => {
-    setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
   const menuClass = "menu";

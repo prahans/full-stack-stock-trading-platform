@@ -7,10 +7,9 @@ export const apiConfigurationError =
     ? "The application service is not configured. Please try again later."
     : null;
 
-const baseURL = (configuredApiUrl || "http://localhost:3000").replace(
-  /\/+$/,
-  "",
-);
+const baseURL = configuredApiUrl
+  ? configuredApiUrl.replace(/\/+$/, "")
+  : undefined;
 
 export const api = axios.create({
   baseURL,

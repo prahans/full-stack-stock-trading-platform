@@ -4,13 +4,41 @@ import bcrypt from "bcryptjs";
 import User from "../models/users.ts";
 import { createSecretToken } from "../util/secretToken.ts";
 
+const authCookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: (process.env.NODE_ENV === "production" ? "none" : "lax") as
+    | "none"
+    | "lax",
+};
+
 export const signup = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { email, password, username } = req.body;
+    const email =
+      typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
+    const password = typeof req.body.password === "string" ? req.body.password : "";
+    const username =
+      typeof req.body.username === "string" ? req.body.username.trim() : "";
+
+    if (!email || !password || !username) {
+      res.status(400).json({
+        success: false,
+        message: "Email, username, and password are required",
+      });
+      return;
+    }
+
+    if (password.length < 8) {
+      res.status(400).json({
+        success: false,
+        message: "Password must be at least 8 characters",
+      });
+      return;
+    }
 
     // 1. Check if user already exists
     const existingUser = await User.findOne({
@@ -41,9 +69,7 @@ export const signup = async (
 
     // 5. Store JWT in HTTP-only cookie
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      ...authCookieOptions,
       maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
@@ -70,7 +96,9 @@ export const login = async (
 ): Promise<void> => {
   try {
     // 1. Get credentials from request body
-    const { email, password } = req.body;
+    const email =
+      typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
+    const password = typeof req.body.password === "string" ? req.body.password : "";
 
     // 2. Validate required fields
     if (!email || !password) {
@@ -112,9 +140,7 @@ export const login = async (
 
     // 7. Store JWT in HTTP-only cookie
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      ...authCookieOptions,
       maxAge: 3 * 24 * 60 * 60 * 1000,
     });
 
@@ -140,9 +166,7 @@ export const logout = (
 ): void => {
   try {
     res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      ...authCookieOptions,
     });
 
     res.status(200).json({

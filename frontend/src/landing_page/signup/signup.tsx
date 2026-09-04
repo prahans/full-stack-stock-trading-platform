@@ -1,19 +1,36 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useState } from "react";
+import { api, dashboardUrl } from "../../api";
+
+type SignupForm = {
+  username: string;
+  email: string;
+  password: string;
+};
 
 const Signup = () => {
+  const [serverError, setServerError] = useState("");
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isSubmitting },
+  } = useForm<SignupForm>();
 
-  function onSubmit(data: {
-    username: string;
-    email: string;
-    password: string;
-  }) {
-    console.log(data);
+  async function onSubmit(data: SignupForm) {
+    setServerError("");
+
+    try {
+      await api.post("/api/auth/signup", data);
+      window.location.assign(dashboardUrl);
+    } catch (error) {
+      setServerError(
+        axios.isAxiosError(error)
+          ? error.response?.data?.message || "Unable to sign up. Please try again."
+          : "Unable to sign up. Please try again.",
+      );
+    }
   }
 
   return (
@@ -34,6 +51,7 @@ const Signup = () => {
                 placeholder="Enter your email"
                 {...register("email", { required: "Email is required" })}
               />
+              {errors.email && <div className="text-danger">{errors.email.message}</div>}
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="form-label">
@@ -44,8 +62,14 @@ const Signup = () => {
                 className="form-control"
                 id="password"
                 placeholder="Enter your password"
-                {...register("password", { required: "Password is required" })}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: { value: 8, message: "Use at least 8 characters" },
+                })}
               />
+              {errors.password && (
+                <div className="text-danger">{errors.password.message}</div>
+              )}
             </div>
             <div className="mb-4">
               <label htmlFor="username" className="form-label">
@@ -58,13 +82,18 @@ const Signup = () => {
                 placeholder="Enter your username"
                 {...register("username", { required: "Username is required" })}
               />
+              {errors.username && (
+                <div className="text-danger">{errors.username.message}</div>
+              )}
             </div>
+            {serverError && <div className="alert alert-danger">{serverError}</div>}
             <button
               type="submit"
               className="btn btn-primary"
+              disabled={isSubmitting}
               style={{ marginRight: "1rem" }}
             >
-              Submit
+              {isSubmitting ? "Creating account..." : "Signup"}
             </button>
             <span>
               Already have an account? <Link to={"/login"}>Login</Link>

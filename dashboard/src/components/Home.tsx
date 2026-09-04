@@ -5,8 +5,8 @@ import TopBar from "./TopBar";
 // import { useEffect, useState } from "react";
 // import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { goToLogin } from "./appUrls";
 
 type CurrentUser = {
   id: string;
@@ -15,9 +15,9 @@ type CurrentUser = {
 };
 
 const Home = () => {
-  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -27,6 +27,9 @@ const Home = () => {
         setCurrentUser(response.data.user);
       } catch {
         setCurrentUser(null);
+        goToLogin(true);
+      } finally {
+        setIsCheckingAuth(false);
       }
     };
 
@@ -37,17 +40,23 @@ const Home = () => {
     try {
       await api.post("/api/auth/logout");
 
-      navigate("/login");
+      goToLogin();
     } catch {
       setError("Failed to log out. Please try again.");
     }
   };
 
+  if (isCheckingAuth || !currentUser) {
+    return <p className="p-4">Checking authentication...</p>;
+  }
+
   if (error) {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => navigate("/login")}>Go to Login</button>
+        <button onClick={() => goToLogin()}>
+          Go to Login
+        </button>
       </>
     );
   }

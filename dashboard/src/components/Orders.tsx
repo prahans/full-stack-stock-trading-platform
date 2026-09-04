@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { api } from "./api";
+import { goToLogin } from "./appUrls";
 
 type orders = {
   name: string;
@@ -11,7 +13,6 @@ type orders = {
 
 const Orders = () => {
   const [allOrders, setAllOrders] = useState<orders[]>([]);
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -21,9 +22,7 @@ const Orders = () => {
         setIsLoading(true);
         setError("");
 
-        const response = await axios.get(
-          "http://localhost:3000/api/dashboard/allOrders",
-        );
+        const response = await api.get("/api/dashboard/allOrders");
 
         setAllOrders(response.data);
       } catch (error) {
@@ -48,7 +47,9 @@ const Orders = () => {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => navigate("/login")}>Go to Login</button>
+        <button onClick={() => goToLogin()}>
+          Go to Login
+        </button>
       </>
     );
   }
