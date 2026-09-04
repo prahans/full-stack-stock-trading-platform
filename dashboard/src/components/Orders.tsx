@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 type orders = {
@@ -11,11 +11,47 @@ type orders = {
 
 const Orders = () => {
   const [allOrders, setAllOrders] = useState<orders[]>([]);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
   useEffect(() => {
-    axios.get("http://localhost:3000/api/dashboard/allOrders").then((res) => {
-      setAllOrders(res.data);
-    });
+    const fetchPosts = async () => {
+      try {
+        setIsLoading(true);
+        setError("");
+
+        const response = await axios.get(
+          "http://localhost:3000/api/dashboard/allOrders",
+        );
+
+        setAllOrders(response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || "Failed to load orders.");
+        } else {
+          setError("Something went wrong.");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
   }, []);
+
+  if (isLoading) {
+    return <h2>Loading posts...</h2>;
+  }
+
+  if (error) {
+    return (
+      <>
+        <h2>{error}</h2>
+        <button onClick={() => navigate("/login")}>Go to Login</button>
+      </>
+    );
+  }
 
   return (
     <>
