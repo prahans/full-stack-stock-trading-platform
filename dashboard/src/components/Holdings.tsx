@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type holdings = {
   name: string;
@@ -12,12 +13,48 @@ type holdings = {
 };
 
 const Holdings = () => {
+  const navigate = useNavigate();
   const [allHoldings, setAllHoldings] = useState<holdings[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
   useEffect(() => {
-    axios.get("http://localhost:3000/api/dashboard/allHoldings").then((res) => {
-      setAllHoldings(res.data);
-    });
+    const fetchPosts = async () => {
+      try {
+        setIsLoading(true);
+        setError("");
+
+        const response = await axios.get(
+          "http://localhost:3000/api/dashboard/allHoldings",
+        );
+
+        setAllHoldings(response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || "Failed to load holdings.");
+        } else {
+          setError("Something went wrong.");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
   }, []);
+
+  if (isLoading) {
+    return <h2>Loading posts...</h2>;
+  }
+
+  if (error) {
+    return (
+      <>
+        <h2>{error}</h2>
+        <button onClick={() => navigate("/login")}>Go to Login</button>
+      </>
+    );
+  }
 
   return (
     <>
