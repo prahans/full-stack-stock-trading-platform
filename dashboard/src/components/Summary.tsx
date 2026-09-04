@@ -1,8 +1,36 @@
+import { useEffect, useState } from "react";
+import { goToLogin } from "./appUrls";
+import { api } from "./api";
+import type { CurrentUser } from "./Home";
+
 const Summary = () => {
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await api.get("/api/auth/me");
+
+        setCurrentUser(response.data.user);
+      } catch {
+        setCurrentUser(null);
+        goToLogin(true);
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  if (isCheckingAuth || !currentUser) {
+    return <p className="p-4">Checking authentication...</p>;
+  }
   return (
     <>
       <div className="username">
-        <h6>Hi, User!</h6>
+        <h6>Hi, {currentUser?.username}</h6>
         <hr className="divider" />
       </div>
 

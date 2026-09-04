@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { goToLogin } from "./appUrls";
 
-type CurrentUser = {
+export type CurrentUser = {
   id: string;
   username: string;
   email: string;
@@ -54,16 +54,21 @@ const Home = () => {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => goToLogin()}>
-          Go to Login
-        </button>
+        <button onClick={() => goToLogin()}>Go to Login</button>
       </>
     );
   }
 
   return (
     <>
-      <div className="home_page">
+      <div
+        className="home_page"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <h4>
           Welcome <span>{currentUser?.username}</span>
         </h4>
