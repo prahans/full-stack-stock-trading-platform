@@ -1,29 +1,12 @@
 import { Router } from "express";
 import { type Request, type Response } from "express";
 
-import Post from "../models/posts.ts";
 import Holding from "../models/holdings.ts";
 import Position from "../models/positions.ts";
 import Order from "../models/orders.ts";
 import { userVerification } from "../middlewares/authMiddleware.ts";
 
 const router = Router();
-
-// GET ALL POSTS
-router.get("/", userVerification, async (req: Request, res: Response) => {
-  try {
-    const posts = await Post.find();
-
-    res.status(200).json(posts);
-  } catch (error) {
-    console.error("Get posts error:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-});
 
 router.get(
   "/allholdings",
