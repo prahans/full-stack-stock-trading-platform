@@ -36,21 +36,25 @@ const Orders = () => {
           <h3 className="title">Orders ({allOrders.length})</h3>
           <div className="order-table">
             <table>
-              <tr>
-                <th>Name</th>
-                <th>Qty.</th>
-                <th>Price</th>
-                <th>Mode</th>
-              </tr>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Qty.</th>
+                  <th>Price</th>
+                  <th>Mode</th>
+                </tr>
+              </thead>
 
               {allOrders.map((stock, index) => {
                 return (
-                  <tr key={index}>
-                    <td>{stock.name}</td>
-                    <td>{stock.qty}</td>
-                    <td>{stock.price}</td>
-                    <td>{stock.mode}</td>
-                  </tr>
+                  <tbody key={index}>
+                    <tr>
+                      <td>{stock.name}</td>
+                      <td>{stock.qty}</td>
+                      <td>{stock.price}</td>
+                      <td>{stock.mode}</td>
+                    </tr>
+                  </tbody>
                 );
               })}
             </table>
