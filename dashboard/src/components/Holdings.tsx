@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { api } from "./api";
 import { goToLogin } from "./appUrls";
+import { VerticalGraph, type VerticalGraphData } from "./VerticalGraph";
 
 type holdings = {
   name: string;
@@ -49,12 +50,31 @@ const Holdings = () => {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => goToLogin()}>
-          Go to Login
-        </button>
+        <button onClick={() => goToLogin()}>Go to Login</button>
       </>
     );
   }
+
+  const labels = allHoldings.map((subArray) => subArray["name"]);
+  const data: VerticalGraphData = {
+    labels,
+    datasets: [
+      {
+        label: "Current value",
+        data: allHoldings.map((stock) => stock.price * stock.qty),
+        backgroundColor: allHoldings.map((stock) =>
+          stock.price >= stock.avg
+            ? "rgba(38, 166, 154, 0.3)"
+            : "rgba(239, 83, 80, 0.3)",
+        ),
+        borderColor: allHoldings.map((stock) =>
+          stock.price >= stock.avg ? "rgb(38, 166, 154)" : "rgb(239, 83, 80)",
+        ),
+        borderWidth: 1,
+        borderRadius: 4,
+      },
+    ],
+  };
 
   return (
     <>
@@ -119,6 +139,7 @@ const Holdings = () => {
           <p>P&L</p>
         </div>
       </div>
+      <VerticalGraph data={data} />
     </>
   );
 };

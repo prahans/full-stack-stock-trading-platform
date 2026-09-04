@@ -2,9 +2,14 @@ import React, { useState, type ReactNode } from "react";
 
 import BuyActionWindow from "./BuyActionWindow";
 
-const GeneralContext = React.createContext({
-  openBuyWindow: (_uid: string) => {},
-  closeBuyWindow: () => {},
+type GeneralContextValue = {
+  openBuyWindow: (uid: string) => void;
+  closeBuyWindow: () => void;
+};
+
+const GeneralContext = React.createContext<GeneralContextValue>({
+  openBuyWindow: () => undefined,
+  closeBuyWindow: () => undefined,
 });
 
 export const GeneralContextProvider = ({ children }: { children: ReactNode }) => {
