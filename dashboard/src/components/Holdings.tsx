@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import { holdings } from "../data/data";
 
 type holdings = {
   name: string;

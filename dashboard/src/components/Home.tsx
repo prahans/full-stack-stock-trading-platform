@@ -1,65 +1,65 @@
 import Dashboard from "./Dashboard";
+import { api } from "./api";
 import TopBar from "./TopBar";
 
 // import { useEffect, useState } from "react";
 // import axios from "axios";
 import { ToastContainer } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+type CurrentUser = {
+  id: string;
+  username: string;
+  email: string;
+};
 
 const Home = () => {
-  // const [loading, setLoading] = useState(true);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
 
-  // useEffect(() => {
-  //   const verifyUser = async () => {
-  //     try {
-  //       const { data } = await axios.get("http://localhost:3002/verify", {
-  //         withCredentials: true,
-  //       });
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await api.get("/api/auth/me");
 
-  //       if (data.success) {
-  //         setUsername(data.user.username);
-  //       } else {
-  //         navigate("/login");
-  //       }
-  //     } catch (err) {
-  //       navigate("/login");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+        setCurrentUser(response.data.user);
+      } catch {
+        setCurrentUser(null);
+      }
+    };
 
-  //   verifyUser();
-  // }, []);
+    fetchCurrentUser();
+  }, []);
 
-  // const logout = async () => {
-  //   try {
-  //     await axios.post(
-  //       "http://localhost:3002/logout",
-  //       {},
-  //       {
-  //         withCredentials: true,
-  //       },
-  //     );
+  const handleLogout = async () => {
+    try {
+      await api.post("/api/auth/logout");
 
-  //     window.location.href = "http://localhost:5173/login";
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+      navigate("/login");
+    } catch {
+      setError("Failed to log out. Please try again.");
+    }
+  };
 
-  // if (loading) {
-  //   return <h2>Loading...</h2>;
-  // }
+  if (error) {
+    return (
+      <>
+        <h2>{error}</h2>
+        <button onClick={() => navigate("/login")}>Go to Login</button>
+      </>
+    );
+  }
 
   return (
     <>
       <div className="home_page">
         <h4>
-          Welcome <span>{/*username*/}</span>
+          Welcome <span>{currentUser?.username}</span>
         </h4>
 
-        <button>LOGOUT</button>
+        <button onClick={handleLogout}>LOGOUT</button>
       </div>
 
       <ToastContainer />

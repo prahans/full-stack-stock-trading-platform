@@ -3,7 +3,6 @@ import express, { type Express } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import postRouter from "./routes/postRoutes.ts";
 import authRouter from "./routes/authRoutes.ts";
 import dashboardRouter from "./routes/dashboardRoutes.ts";
 import connectDB from "./config/db.ts";
@@ -23,7 +22,6 @@ app.use(
 const PORT = process.env.PORT || 3000;
 
 app.use("/api/auth", authRouter);
-app.use("/api/posts", postRouter);
 app.use("/api/dashboard", dashboardRouter);
 
 const startServer = async () => {
