@@ -1,15 +1,10 @@
 import axios from "axios";
 
-const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+const configuredApiUrl =
+  import.meta.env.VITE_API_URL?.trim() ||
+  "https://full-stack-stock-trading-platform-js09.onrender.com";
 
-export const apiConfigurationError =
-  import.meta.env.PROD && !configuredApiUrl
-    ? "The application service is not configured. Please try again later."
-    : null;
-
-const baseURL = configuredApiUrl
-  ? configuredApiUrl.replace(/\/+$/, "")
-  : undefined;
+const baseURL = configuredApiUrl.replace(/\/+$/, "");
 
 export const api = axios.create({
   baseURL,
