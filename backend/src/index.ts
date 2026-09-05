@@ -1,38 +1,18 @@
 import "dotenv/config";
 import express, { type Express } from "express";
-import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import authRouter from "./routes/authRoutes.ts";
 import dashboardRouter from "./routes/dashboardRoutes.ts";
 import connectDB from "./config/db.ts";
+import { createCorsMiddleware } from "./config/cors.ts";
 
 const app: Express = express();
 
 app.use(cookieParser());
 app.use(express.json());
 
-const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:5173",
-  process.env.DASHBOARD_URL || "http://localhost:5174",
-]
-  .flatMap((urls) => urls.split(","))
-  .map((origin) => origin.trim().replace(/\/+$/, ""))
-  .filter(Boolean);
-
-app.use(
-  cors({
-    origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-        return;
-      }
-
-      callback(new Error("Origin is not allowed by CORS"));
-    },
-    credentials: true,
-  }),
-);
+app.use(createCorsMiddleware());
 
 const PORT = process.env.PORT || 3000;
 

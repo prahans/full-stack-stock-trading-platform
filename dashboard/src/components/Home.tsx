@@ -4,6 +4,7 @@ import TopBar from "./TopBar";
 
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { frontendUrl, goToLogin } from "./appUrls";
 
 export type CurrentUser = {
@@ -15,11 +16,16 @@ export type CurrentUser = {
 const Home = () => {
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [authError, setAuthError] = useState("");
+  const [authAttempt, setAuthAttempt] = useState(0);
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchCurrentUser = async () => {
       try {
         const response = await api.get("/api/auth/me");
+        if (cancelled) return;
 
         setCurrentUser(response.data.user);
         toast.success(
@@ -33,19 +39,47 @@ const Home = () => {
             theme: "light",
           },
         );
-      } catch {
+      } catch (error) {
+        if (cancelled) return;
+
         setCurrentUser(null);
-        goToLogin(true);
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          goToLogin(true);
+        } else {
+          setAuthError("Unable to check your session. Please try again shortly.");
+        }
       } finally {
-        setIsCheckingAuth(false);
+        if (!cancelled) setIsCheckingAuth(false);
       }
     };
 
     fetchCurrentUser();
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [authAttempt]);
 
   if (isCheckingAuth) {
     return <p className="p-4">Checking authentication...</p>;
+  }
+
+  if (authError) {
+    return (
+      <div className="p-4">
+        <p role="alert">{authError}</p>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {
+            setAuthError("");
+            setIsCheckingAuth(true);
+            setAuthAttempt((attempt) => attempt + 1);
+          }}
+        >
+          Try again
+        </button>
+      </div>
+    );
   }
 
   if (!currentUser) {

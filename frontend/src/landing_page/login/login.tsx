@@ -24,9 +24,15 @@ const Login = () => {
       await api.post("/api/auth/login", data);
       window.location.assign(dashboardUrl);
     } catch (error) {
+      if (axios.isAxiosError(error) && !error.response) {
+        setServerError("Unable to reach the sign-in service. Please try again shortly.");
+        return;
+      }
+
+      const message = axios.isAxiosError(error) ? error.response?.data?.message : undefined;
       setServerError(
-        axios.isAxiosError(error)
-          ? error.response?.data?.message || "Unable to log in. Please try again."
+        typeof message === "string" && message.trim()
+          ? message
           : "Unable to log in. Please try again.",
       );
     }

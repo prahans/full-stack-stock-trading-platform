@@ -129,11 +129,13 @@ Before deployment, set these variables in each app's hosting project:
 | Project root | Variable | Value |
 | --- | --- | --- |
 | `frontend` | `VITE_API_URL` | `https://full-stack-stock-trading-platform-js09.onrender.com` |
-| `frontend` | `VITE_DASHBOARD_URL` | Your deployed dashboard origin, e.g. `https://dashboard.example.com` |
+| `frontend` | `VITE_DASHBOARD_URL` | `https://full-stack-stock-trading-platform-five.vercel.app` |
 | `dashboard` | `VITE_API_URL` | `https://full-stack-stock-trading-platform-js09.onrender.com` |
 | `dashboard` | `VITE_FRONTEND_URL` | `https://full-stack-stock-trading-platform-f.vercel.app` |
 
-Replace the example frontend and dashboard domains with your actual deployments.
+Use the public production dashboard URL above. The branch URL ending in
+`-git-main-prahans1.vercel.app` currently requires Vercel login and should not be used
+as the redirect destination for application users.
 Do not append `/api` to the backend URL or `/login` to the frontend URL.
 Both projects build with `npm run build` and output to `dist`.
 Both projects require their two environment variables before building.
@@ -148,6 +150,28 @@ On the Render backend, set `FRONTEND_URL` to your deployed frontend origin,
 `DASHBOARD_URL` to your deployed dashboard origin, and `NODE_ENV=production`.
 Both URL variables also accept comma-separated origins if you need multiple domains.
 Keep `MONGO_URL` and `TOKEN_KEY` on the backend; `VITE_*` values are public.
+
+The exact Render URL settings for these deployments are:
+
+```env
+NODE_ENV=production
+FRONTEND_URL=https://full-stack-stock-trading-platform-f.vercel.app
+DASHBOARD_URL=https://full-stack-stock-trading-platform-five.vercel.app
+```
+
+Changing `backend/.env` locally does not update Render. Save these settings in Render,
+keep your existing `MONGO_URL` and `TOKEN_KEY`, and redeploy the backend.
+Use `backend` as the Render root directory, `npm ci` as the build command, and
+`npm start` as the start command.
+
+In Vercel, use `frontend` and `dashboard` as the respective project root directories.
+Each project includes `vercel.json` rewrites so `/login`, `/signup`, and dashboard
+routes load the React app when opened directly or refreshed. Redeploy both Vercel
+projects after pushing the configuration files and saving their environment settings.
+
+Verify that a request to `/api/auth/login` with the frontend's `Origin` receives
+a successful CORS preflight before testing a real login. An unauthenticated GET
+to `/api/auth/me` should return 401; that alone does not indicate a server failure.
 
 ---
 

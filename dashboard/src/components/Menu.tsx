@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { frontendUrl, goToLogin } from "./appUrls";
 import { api } from "./api";
@@ -16,9 +17,13 @@ const Menu = () => {
         const response = await api.get("/api/auth/me");
 
         setCurrentUser(response.data.user);
-      } catch {
+      } catch (error) {
         setCurrentUser(null);
-        goToLogin(true);
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          goToLogin(true);
+        } else {
+          setError("Unable to check your session. Please try again shortly.");
+        }
       } finally {
         setIsCheckingAuth(false);
       }
@@ -44,6 +49,16 @@ const Menu = () => {
     return <p className="p-4">Checking authentication...</p>;
   }
 
+  if (error) {
+    return (
+      <>
+        <h2 role="alert">{error}</h2>
+        {!currentUser && <button onClick={() => window.location.reload()}>Try again</button>}
+        {frontendUrl && <button onClick={() => goToLogin()}>Go to Login</button>}
+      </>
+    );
+  }
+
   if (!currentUser) {
     return (
       <p className="p-4" role="status">
@@ -56,15 +71,6 @@ const Menu = () => {
   const handleMenuClick = (index: number) => {
     setSelectedMenu(index);
   };
-
-  if (error) {
-    return (
-      <>
-        <h2>{error}</h2>
-        {frontendUrl && <button onClick={() => goToLogin()}>Go to Login</button>}
-      </>
-    );
-  }
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
