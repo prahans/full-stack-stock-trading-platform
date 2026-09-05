@@ -9,6 +9,7 @@ export default defineConfig(({ command, mode }) => {
     for (const name of ['VITE_API_URL', 'VITE_FRONTEND_URL']) {
       const value = env[name]?.trim()
       if (!value) {
+        if (name === 'VITE_FRONTEND_URL') continue
         throw new Error(`Set ${name} in your dashboard hosting environment before building.`)
       }
       let url: URL

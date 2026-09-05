@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { goToLogin } from "./appUrls";
+import { frontendUrl, goToLogin } from "./appUrls";
 import { api } from "./api";
 import type { CurrentUser } from "./Home";
 
@@ -31,14 +31,27 @@ const Menu = () => {
     try {
       await api.post("/api/auth/logout");
 
-      goToLogin();
+      setCurrentUser(null);
+      if (!goToLogin()) {
+        window.location.reload();
+      }
     } catch {
       setError("Failed to log out. Please try again.");
     }
   };
 
-  if (isCheckingAuth || !currentUser) {
+  if (isCheckingAuth) {
     return <p className="p-4">Checking authentication...</p>;
+  }
+
+  if (!currentUser) {
+    return (
+      <p className="p-4" role="status">
+        {frontendUrl
+          ? "Redirecting to login..."
+          : "Sign-in is temporarily unavailable. Please try again later."}
+      </p>
+    );
   }
   const handleMenuClick = (index: number) => {
     setSelectedMenu(index);
@@ -48,7 +61,7 @@ const Menu = () => {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => goToLogin()}>Go to Login</button>
+        {frontendUrl && <button onClick={() => goToLogin()}>Go to Login</button>}
       </>
     );
   }

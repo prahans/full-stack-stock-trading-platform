@@ -5,12 +5,15 @@ export const frontendUrl =
     : "");
 
 export const goToLogin = (replace = false) => {
+  if (!frontendUrl) return false;
+
   const loginUrl = `${frontendUrl}/login`;
 
   if (replace) {
     window.location.replace(loginUrl);
-    return;
+    return true;
   }
 
   window.location.assign(loginUrl);
+  return true;
 };
