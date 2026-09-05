@@ -1,7 +1,7 @@
 function Team() {
   return (
-    <div className="container mb-5">
-      <div className="row  p-3 ">
+    <div className="container">
+      <div className="row p-3 ">
         <h1 className="fs-3 text-center" style={{ opacity: ".9" }}>
           People
         </h1>
@@ -12,19 +12,21 @@ function Team() {
       >
         <div className="col-6 p-3">
           <img
-            src="media\images\nithin-kamath.jpg"
+            src="media\images\prahans2.jpg"
             style={{
-              borderRadius: "100%",
+              borderRadius: "50%",
               width: "50%",
               marginLeft: "9rem",
+              height: "50%",
+              objectFit: "cover",
             }}
           />
-          <h4 className="text-center mt-2">Nithin Kamath</h4>
-          <h6 className="text-center">Founder, CEO</h6>
+          <h4 className="text-center mt-2">Prahan Panuhar</h4>
+          <h6 className="text-center">Co-Founder, CTO</h6>
         </div>
-        <div className="col-6 p-3">
+        <div className="col-6 p-3 mt-5">
           <p>
-            Nithin bootstrapped and founded Zerodha in 2010 to overcome the
+            Prahan bootstrapped and founded Zerodha in 2010 to overcome the
             hurdles he faced during his decade long stint as a trader. Today,
             Zerodha has changed the landscape of the Indian broking industry.
           </p>
