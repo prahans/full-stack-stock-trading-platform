@@ -12,9 +12,8 @@ const app: Express = express();
 app.use(cookieParser());
 app.use(express.json());
 
-const allowedOrigins = (
-  process.env.FRONTEND_URL || "http://localhost:5173,http://localhost:5174"
-)
+const allowedOrigins = (process.env.FRONTEND_URL,
+process.env.DASHBOARD_URL || "http://localhost:5173,http://localhost:5174")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
@@ -42,13 +41,20 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/dashboard", dashboardRouter);
 
-app.use((error: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  console.error(error);
-  res.status(500).json({
-    success: false,
-    message: "Internal server error",
-  });
-});
+app.use(
+  (
+    error: Error,
+    _req: express.Request,
+    res: express.Response,
+    _next: express.NextFunction,
+  ) => {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  },
+);
 
 const startServer = async () => {
   try {
