@@ -131,20 +131,18 @@ Before deployment, set these variables in each app's hosting project:
 | `frontend` | `VITE_API_URL` | `https://full-stack-stock-trading-platform-js09.onrender.com` |
 | `frontend` | `VITE_DASHBOARD_URL` | Your deployed dashboard origin, e.g. `https://dashboard.example.com` |
 | `dashboard` | `VITE_API_URL` | `https://full-stack-stock-trading-platform-js09.onrender.com` |
-| `dashboard` | `VITE_FRONTEND_URL` | Optional until the frontend is deployed; then use its actual origin |
+| `dashboard` | `VITE_FRONTEND_URL` | `https://full-stack-stock-trading-platform-f.vercel.app` |
 
 Replace the example frontend and dashboard domains with your actual deployments.
 Do not append `/api` to the backend URL or `/login` to the frontend URL.
 Both projects build with `npm run build` and output to `dist`.
-The frontend requires both variables; the dashboard requires only `VITE_API_URL`.
+Both projects require their two environment variables before building.
 Builds report an error if a required URL is missing or a supplied URL is not a full HTTP(S) URL.
 Vite embeds these values during the build, so rebuild and redeploy after changing them.
 
-Deploy the backend first, then the dashboard with only `VITE_API_URL`.
-Deploy the frontend with `VITE_API_URL` and the real `VITE_DASHBOARD_URL`.
-Finally, add the real `VITE_FRONTEND_URL` to the dashboard and redeploy it.
-Until then, unauthenticated dashboard visitors see a sign-in unavailable message;
-login redirects are disabled. No placeholder frontend URL is needed.
+Use the actual deployed frontend and dashboard URLs for the redirect variables.
+Set `VITE_FRONTEND_URL` in the dashboard hosting project and redeploy the dashboard
+to enable redirects to the frontend login page.
 
 On the Render backend, set `FRONTEND_URL` to your deployed frontend origin,
 `DASHBOARD_URL` to your deployed dashboard origin, and `NODE_ENV=production`.
