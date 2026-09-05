@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 function Universe() {
+  const navigate = useNavigate();
   return (
     <div className="container mt-5">
       <h2 style={{ opacity: ".9" }} className="text-center mt-5 mb-3">
@@ -63,6 +66,7 @@ function Universe() {
         <button
           className="p-2 btn btn-primary fs-5 mb-5 mt-5"
           style={{ width: "20%", margin: "0 auto" }}
+          onClick={() => navigate("/signup")}
         >
           Sign up for free
         </button>
