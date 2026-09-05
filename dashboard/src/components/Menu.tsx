@@ -1,11 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { goToLogin } from "./appUrls";
+import { api } from "./api";
+import type { CurrentUser } from "./Home";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
+  const [error, setError] = useState("");
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await api.get("/api/auth/me");
+
+        setCurrentUser(response.data.user);
+      } catch {
+        setCurrentUser(null);
+        goToLogin(true);
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await api.post("/api/auth/logout");
+
+      goToLogin();
+    } catch {
+      setError("Failed to log out. Please try again.");
+    }
+  };
+
+  if (isCheckingAuth || !currentUser) {
+    return <p className="p-4">Checking authentication...</p>;
+  }
   const handleMenuClick = (index: number) => {
     setSelectedMenu(index);
   };
+
+  if (error) {
+    return (
+      <>
+        <h2>{error}</h2>
+        <button onClick={() => goToLogin()}>Go to Login</button>
+      </>
+    );
+  }
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
@@ -83,9 +129,24 @@ const Menu = () => {
           </li>
         </ul>
         <hr />
+        <button
+          style={{
+            fontSize: "12px",
+            backgroundColor: "white",
+            border: "2px solid #f0f0f0",
+            marginLeft: "15px",
+          }}
+          onClick={handleLogout}
+        >
+          logout
+        </button>
         <div className="profile">
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
+          <div className="avatar">
+            {currentUser?.username.slice(0, 2).toUpperCase() || "ZU"}
+          </div>
+          <p className="username">
+            {currentUser?.username.toUpperCase() || "USERID"}
+          </p>
         </div>
       </div>
     </div>
