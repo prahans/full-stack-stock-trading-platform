@@ -1,6 +1,8 @@
 export const frontendUrl =
-  import.meta.env.VITE_FRONTEND_URL?.trim() ||
-  `${window.location.protocol}//${window.location.hostname}:5173`;
+  import.meta.env.VITE_FRONTEND_URL?.trim().replace(/\/+$/, "") ||
+  (import.meta.env.DEV
+    ? `${window.location.protocol}//${window.location.hostname}:5173`
+    : "");
 
 export const goToLogin = (replace = false) => {
   const loginUrl = `${frontendUrl}/login`;

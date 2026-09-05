@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const apiUrl =
-  import.meta.env.VITE_API_URL?.trim() ||
-  "https://full-stack-stock-trading-platform-js09.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const dashboardUrl =
-  import.meta.env.VITE_DASHBOARD_URL?.trim() ||
-  `${window.location.protocol}//${window.location.hostname}:5174`;
+  import.meta.env.VITE_DASHBOARD_URL?.trim().replace(/\/+$/, "") ||
+  (import.meta.env.DEV
+    ? `${window.location.protocol}//${window.location.hostname}:5174`
+    : "");
 
 export const api = axios.create({
-  baseURL: apiUrl.replace(/\/+$/, ""),
+  baseURL: API_URL?.trim().replace(/\/+$/, "") || undefined,
   withCredentials: true,
 });

@@ -1,12 +1,8 @@
 import axios from "axios";
 
-const configuredApiUrl =
-  import.meta.env.VITE_API_URL?.trim() ||
-  "https://full-stack-stock-trading-platform-js09.onrender.com";
-
-const baseURL = configuredApiUrl.replace(/\/+$/, "");
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const api = axios.create({
-  baseURL,
+  baseURL: API_URL?.trim().replace(/\/+$/, "") || undefined,
   withCredentials: true,
 });

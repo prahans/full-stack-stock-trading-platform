@@ -117,6 +117,31 @@ TOKEN_KEY=your_secret_key
 FRONTEND_URL=http://localhost:5173,http://localhost:5174
 ```
 
+### Frontend and dashboard environment variables
+
+Each app has its own environment settings. For local use, copy its `.env.example`
+to `.env.local`. Vite does not load `.env.example` automatically. Blank values in
+development use the local API proxy and the other app's local port.
+
+Before deployment, set these variables in each app's hosting project:
+
+| Project root | Variable | Value |
+| --- | --- | --- |
+| `frontend` | `VITE_API_URL` | `https://full-stack-stock-trading-platform-js09.onrender.com` |
+| `frontend` | `VITE_DASHBOARD_URL` | Your deployed dashboard origin, e.g. `https://dashboard.example.com` |
+| `dashboard` | `VITE_API_URL` | `https://full-stack-stock-trading-platform-js09.onrender.com` |
+| `dashboard` | `VITE_FRONTEND_URL` | Your deployed frontend origin, e.g. `https://www.example.com` |
+
+Replace the example frontend and dashboard domains with your actual deployments.
+Do not append `/api` to the backend URL or `/login` to the frontend URL.
+Both projects build with `npm run build` and output to `dist`.
+Builds report an error if a required URL is missing or is not a full HTTP(S) URL.
+Vite embeds these values during the build, so rebuild and redeploy after changing them.
+
+On the Render backend, set `FRONTEND_URL` to both deployed browser origins,
+separated by a comma with no trailing slashes, and set `NODE_ENV=production`.
+Keep `MONGO_URL` and `TOKEN_KEY` on the backend; `VITE_*` values are public.
+
 ---
 
 ## 4. Run the Project
