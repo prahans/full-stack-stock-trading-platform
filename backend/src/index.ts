@@ -12,10 +12,12 @@ const app: Express = express();
 app.use(cookieParser());
 app.use(express.json());
 
-const allowedOrigins = (process.env.FRONTEND_URL,
-process.env.DASHBOARD_URL || "http://localhost:5173,http://localhost:5174")
-  .split(",")
-  .map((origin) => origin.trim())
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:5173",
+  process.env.DASHBOARD_URL || "http://localhost:5174",
+]
+  .flatMap((urls) => urls.split(","))
+  .map((origin) => origin.trim().replace(/\/+$/, ""))
   .filter(Boolean);
 
 app.use(

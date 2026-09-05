@@ -114,7 +114,8 @@ MONGO_URL=your_mongodb_connection_string
 
 TOKEN_KEY=your_secret_key
 
-FRONTEND_URL=http://localhost:5173,http://localhost:5174
+FRONTEND_URL=http://localhost:5173
+DASHBOARD_URL=http://localhost:5174
 ```
 
 ### Frontend and dashboard environment variables
@@ -138,8 +139,9 @@ Both projects build with `npm run build` and output to `dist`.
 Builds report an error if a required URL is missing or is not a full HTTP(S) URL.
 Vite embeds these values during the build, so rebuild and redeploy after changing them.
 
-On the Render backend, set `FRONTEND_URL` to both deployed browser origins,
-separated by a comma with no trailing slashes, and set `NODE_ENV=production`.
+On the Render backend, set `FRONTEND_URL` to your deployed frontend origin,
+`DASHBOARD_URL` to your deployed dashboard origin, and `NODE_ENV=production`.
+Both URL variables also accept comma-separated origins if you need multiple domains.
 Keep `MONGO_URL` and `TOKEN_KEY` on the backend; `VITE_*` values are public.
 
 ---
