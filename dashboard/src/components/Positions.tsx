@@ -1,7 +1,7 @@
 import { positions } from "../data/data";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { api } from "./api";
+import { api } from "../api/api";
 import { goToLogin } from "./appUrls";
 
 type positions = {
@@ -53,9 +53,7 @@ const Positions = () => {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => goToLogin()}>
-          Go to Login
-        </button>
+        <button onClick={() => goToLogin()}>Go to Login</button>
       </>
     );
   }

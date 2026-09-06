@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./BuyActionWindow.css";
 
-import { api } from "./api";
+import { api } from "../api/api";
 
 import GeneralContext from "./GeneralContext";
 

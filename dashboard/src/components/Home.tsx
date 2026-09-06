@@ -1,5 +1,5 @@
 import Dashboard from "./Dashboard";
-import { api } from "./api";
+import { api } from "../api/api";
 import TopBar from "./TopBar";
 
 import { toast, ToastContainer } from "react-toastify";
@@ -46,7 +46,9 @@ const Home = () => {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
           goToLogin(true);
         } else {
-          setAuthError("Unable to check your session. Please try again shortly.");
+          setAuthError(
+            "Unable to check your session. Please try again shortly.",
+          );
         }
       } finally {
         if (!cancelled) setIsCheckingAuth(false);

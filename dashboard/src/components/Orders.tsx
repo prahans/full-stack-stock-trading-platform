@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { api } from "./api";
+import { api } from "../api/api";
 import { goToLogin } from "./appUrls";
 
 type orders = {
@@ -47,9 +47,7 @@ const Orders = () => {
     return (
       <>
         <h2>{error}</h2>
-        <button onClick={() => goToLogin()}>
-          Go to Login
-        </button>
+        <button onClick={() => goToLogin()}>Go to Login</button>
       </>
     );
   }

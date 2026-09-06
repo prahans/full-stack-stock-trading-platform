@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { frontendUrl, goToLogin } from "./appUrls";
-import { api } from "./api";
+import { api } from "../api/api";
 import type { CurrentUser } from "./Home";
 
 const Menu = () => {
@@ -53,8 +53,12 @@ const Menu = () => {
     return (
       <>
         <h2 role="alert">{error}</h2>
-        {!currentUser && <button onClick={() => window.location.reload()}>Try again</button>}
-        {frontendUrl && <button onClick={() => goToLogin()}>Go to Login</button>}
+        {!currentUser && (
+          <button onClick={() => window.location.reload()}>Try again</button>
+        )}
+        {frontendUrl && (
+          <button onClick={() => goToLogin()}>Go to Login</button>
+        )}
       </>
     );
   }
