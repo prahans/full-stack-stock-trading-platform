@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react";
 import { goToLogin } from "../config/appUrls";
-import { api } from "../api/api";
-import type { CurrentUser } from "./Home";
+import { useCurrentUser } from "../hooks/useCurrentUser";
+import axios from "axios";
 
 const Summary = () => {
-  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const { data: currentUser, isPending, isError, error } = useCurrentUser();
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await api.get("/api/auth/me");
+  if (isError && axios.isAxiosError(error) && error.response?.status === 401) {
+    goToLogin(true);
 
-        setCurrentUser(response.data.user);
-      } catch {
-        setCurrentUser(null);
-        goToLogin(true);
-      } finally {
-        setIsCheckingAuth(false);
-      }
-    };
+    return <p className="p-4">Redirecting to login...</p>;
+  }
 
-    fetchCurrentUser();
-  }, []);
-
-  if (isCheckingAuth || !currentUser) {
+  if (isPending || !currentUser) {
     return <p className="p-4">Checking authentication...</p>;
   }
+
   return (
     <>
       <div className="username">
