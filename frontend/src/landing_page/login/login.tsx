@@ -25,11 +25,15 @@ const Login = () => {
       window.location.assign(dashboardUrl);
     } catch (error) {
       if (axios.isAxiosError(error) && !error.response) {
-        setServerError("Unable to reach the sign-in service. Please try again shortly.");
+        setServerError(
+          "Unable to reach the sign-in service. Please try again shortly.",
+        );
         return;
       }
 
-      const message = axios.isAxiosError(error) ? error.response?.data?.message : undefined;
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message
+        : undefined;
       setServerError(
         typeof message === "string" && message.trim()
           ? message
@@ -56,7 +60,9 @@ const Login = () => {
                 placeholder="Enter your email"
                 {...register("email", { required: "Email is required" })}
               />
-              {errors.email && <div className="text-danger">{errors.email.message}</div>}
+              {errors.email && (
+                <div className="text-danger">{errors.email.message}</div>
+              )}
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="form-label">
@@ -73,7 +79,9 @@ const Login = () => {
                 <div className="text-danger">{errors.password.message}</div>
               )}
             </div>
-            {serverError && <div className="alert alert-danger">{serverError}</div>}
+            {serverError && (
+              <div className="alert alert-danger">{serverError}</div>
+            )}
             <button
               type="submit"
               className="btn btn-primary"
@@ -83,7 +91,14 @@ const Login = () => {
               {isSubmitting ? "Logging in..." : "Login"}
             </button>
             <span>
-              Don't have an account? <Link to={"/signup"}>Signup</Link>
+              Don't have an account?{" "}
+              {isSubmitting ? (
+                <span style={{ opacity: 0.5, cursor: "not-allowed" }}>
+                  Signup
+                </span>
+              ) : (
+                <Link to="/signup">Signup</Link>
+              )}
             </span>
           </form>
         </div>

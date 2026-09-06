@@ -26,11 +26,15 @@ const Signup = () => {
       window.location.assign(dashboardUrl);
     } catch (error) {
       if (axios.isAxiosError(error) && !error.response) {
-        setServerError("Unable to reach the sign-in service. Please try again shortly.");
+        setServerError(
+          "Unable to reach the sign-in service. Please try again shortly.",
+        );
         return;
       }
 
-      const message = axios.isAxiosError(error) ? error.response?.data?.message : undefined;
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message
+        : undefined;
       setServerError(
         typeof message === "string" && message.trim()
           ? message
@@ -57,7 +61,9 @@ const Signup = () => {
                 placeholder="Enter your email"
                 {...register("email", { required: "Email is required" })}
               />
-              {errors.email && <div className="text-danger">{errors.email.message}</div>}
+              {errors.email && (
+                <div className="text-danger">{errors.email.message}</div>
+              )}
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="form-label">
@@ -92,7 +98,9 @@ const Signup = () => {
                 <div className="text-danger">{errors.username.message}</div>
               )}
             </div>
-            {serverError && <div className="alert alert-danger">{serverError}</div>}
+            {serverError && (
+              <div className="alert alert-danger">{serverError}</div>
+            )}
             <button
               type="submit"
               className="btn btn-primary"
@@ -102,7 +110,14 @@ const Signup = () => {
               {isSubmitting ? "Creating account..." : "Signup"}
             </button>
             <span>
-              Already have an account? <Link to={"/login"}>Login</Link>
+              Already have an account?{" "}
+              {isSubmitting ? (
+                <span style={{ opacity: 0.5, cursor: "not-allowed" }}>
+                  Login
+                </span>
+              ) : (
+                <Link to="/login">Login</Link>
+              )}
             </span>
           </form>
         </div>
