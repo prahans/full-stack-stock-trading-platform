@@ -1,58 +1,17 @@
-import { positions } from "../data/data";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { api } from "../api/api";
 import { goToLogin } from "../config/appUrls";
-
-type positions = {
-  product: string;
-  name: string;
-  qty: number;
-  avg: number;
-  price: number;
-  net: string;
-  day: string;
-  isLoss: boolean;
-};
+import { usePositions } from "../hooks/usePositions";
 
 const Positions = () => {
-  const [allPositions, setAllPositions] = useState<positions[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { data: allPositions, isPending, isError, error } = usePositions();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        setIsLoading(true);
-        setError("");
-
-        const response = await api.get("/api/dashboard/allPositions");
-
-        setAllPositions(response.data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setError(
-            error.response?.data?.message || "Failed to load positions.",
-          );
-        } else {
-          setError("Something went wrong.");
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  if (isLoading) {
-    return <h2>Loading posts...</h2>;
+  if (isPending) {
+    return <h2>Loading positions...</h2>;
   }
 
-  if (error) {
+  if (isError) {
     return (
       <>
-        <h2>{error}</h2>
+        <h2>{error.message}</h2>
         <button onClick={() => goToLogin()}>Go to Login</button>
       </>
     );
