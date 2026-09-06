@@ -1,77 +1,48 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { frontendUrl, goToLogin } from "../config/appUrls";
-import { api } from "../api/api";
-import type { CurrentUser } from "./Home";
+import { goToLogin } from "../config/appUrls";
+import { useLogout } from "../hooks/useLogout";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
-  const [error, setError] = useState("");
-  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await api.get("/api/auth/me");
+  const {
+    data: currentUser,
+    isPending: isCheckingAuth,
+    isError,
+    error,
+  } = useCurrentUser();
 
-        setCurrentUser(response.data.user);
-      } catch (error) {
-        setCurrentUser(null);
-        if (axios.isAxiosError(error) && error.response?.status === 401) {
-          goToLogin(true);
-        } else {
-          setError("Unable to check your session. Please try again shortly.");
-        }
-      } finally {
-        setIsCheckingAuth(false);
-      }
-    };
-
-    fetchCurrentUser();
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      await api.post("/api/auth/logout");
-
-      setCurrentUser(null);
-      if (!goToLogin()) {
-        window.location.reload();
-      }
-    } catch {
-      setError("Failed to log out. Please try again.");
-    }
-  };
+  const {
+    mutate: logout,
+    isPending: isLoggingOut,
+    isError: isLogoutError,
+  } = useLogout();
 
   if (isCheckingAuth) {
     return <p className="p-4">Checking authentication...</p>;
   }
 
-  if (error) {
+  if (isError && axios.isAxiosError(error) && error.response?.status === 401) {
+    goToLogin(true);
+
+    return <p className="p-4">Redirecting to login...</p>;
+  }
+
+  if (isError) {
     return (
-      <>
-        <h2 role="alert">{error}</h2>
-        {!currentUser && (
-          <button onClick={() => window.location.reload()}>Try again</button>
-        )}
-        {frontendUrl && (
-          <button onClick={() => goToLogin()}>Go to Login</button>
-        )}
-      </>
+      <h2 role="alert">
+        Unable to check your session. Please try again shortly.
+      </h2>
     );
   }
 
   if (!currentUser) {
-    return (
-      <p className="p-4" role="status">
-        {frontendUrl
-          ? "Redirecting to login..."
-          : "Sign-in is temporarily unavailable. Please try again later."}
-      </p>
-    );
+    return <p className="p-4">Redirecting to login...</p>;
   }
+
   const handleMenuClick = (index: number) => {
     setSelectedMenu(index);
   };
@@ -82,6 +53,9 @@ const Menu = () => {
   return (
     <div className="menu-container">
       <img src="logo.png" style={{ width: "50px" }} />
+      {isLogoutError && (
+        <p role="alert">Failed to log out. Please try again.</p>
+      )}
       <div className="menus">
         <ul>
           <li>
@@ -159,9 +133,10 @@ const Menu = () => {
             border: "2px solid #f0f0f0",
             marginLeft: "15px",
           }}
-          onClick={handleLogout}
+          onClick={() => logout()}
+          disabled={isLoggingOut}
         >
-          logout
+          {isLoggingOut ? "Logging out..." : "Logout"}
         </button>
         <div className="profile">
           <div className="avatar">
