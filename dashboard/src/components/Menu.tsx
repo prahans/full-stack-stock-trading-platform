@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { frontendUrl, goToLogin } from "./appUrls";
+import { frontendUrl, goToLogin } from "../config/appUrls";
 import { api } from "../api/api";
 import type { CurrentUser } from "./Home";
 

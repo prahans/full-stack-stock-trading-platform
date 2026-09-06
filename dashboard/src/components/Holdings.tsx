@@ -1,4 +1,4 @@
-import { goToLogin } from "./appUrls";
+import { goToLogin } from "../config/appUrls";
 import { VerticalGraph, type VerticalGraphData } from "./VerticalGraph";
 import { useHoldings } from "../hooks/useHoldings";
 

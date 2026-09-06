@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { goToLogin } from "./appUrls";
+import { goToLogin } from "../config/appUrls";
 import { api } from "../api/api";
 import type { CurrentUser } from "./Home";
 

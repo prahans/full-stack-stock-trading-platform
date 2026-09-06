@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { api } from "../api/api";
-import { goToLogin } from "./appUrls";
+import { goToLogin } from "../config/appUrls";
 
 type orders = {
   name: string;

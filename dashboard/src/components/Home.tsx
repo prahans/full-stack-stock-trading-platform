@@ -5,7 +5,7 @@ import TopBar from "./TopBar";
 import { toast, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { frontendUrl, goToLogin } from "./appUrls";
+import { frontendUrl, goToLogin } from "../config/appUrls";
 
 export type CurrentUser = {
   id: string;
